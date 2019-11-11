@@ -1,0 +1,168 @@
+<body>
+    <div style="width:100vw;height: 100vh; margin: 0; cursor:pointer;" id="button"></div>
+</body>
+
+<style>
+  #ktLoadingBg {
+    background-color: green;
+  }
+</style>
+
+<script>
+
+class fillLoading {
+
+    // 開発用設定
+    wrapNodeId = 'fillLoadingWrap'; // string
+    bgNodeId = 'fillLoadingBg'; // string
+
+    // optionsの型定義
+    // tsでは無いが、補足で書いておくようにしたい
+
+    // 状態
+    isShow = false; // boolean
+
+
+    defaultOptions = {
+        img:'', //string
+        imgWidth:'80px',
+        imgHeight:'',
+        message:'Loading...', //string
+        fontSize:'16px', //string
+        color:'#fff', //string
+        backgroundColor:'rgba(0,0,0,.7)', //string
+        zIndex:1000, //number
+        transition:200 // number
+    }
+
+    // 実際に適用するオプション
+    optionsToApply = {}
+
+    // デフォルトのセッティングを変える
+    changeDefaultSetting = (options) => {
+        Object.assign(this.defaultOptions,options);
+    }
+    
+    /**
+     * ローディングを表示する
+    */
+    showLoading = (options) => {
+        console.log('startLoading');
+        this.isShow = true;
+
+        this.setOption(options);
+
+        const appendLoadingElement = new Promise((resolve,reject) => {
+            // element作成
+            const loadingElement = document.createElement('div');
+            loadingElement.id = this.wrapNodeId;
+            loadingElement.innerHTML = this.makeLoadingElementInner();
+            document.body.appendChild(loadingElement);
+            resolve();
+        });
+
+        // アニメーション開始
+        appendLoadingElement.then(() => {
+            setTimeout(() => {
+                document.getElementById(this.bgNodeId).style.opacity = 1;
+            },1)
+        })
+
+    }
+
+    setOption = (options) => {
+        // デフォルトオプションをコピー
+        // ※ Object.assign()は破壊的であるため
+        this.optionsToApply = Object.assign({},this.defaultOptions);
+        if(options){
+            Object.assign(this.optionsToApply,options);
+        }
+    }
+
+    /**
+     * ローディングを消す
+     * 
+    */
+    hideLoading = () => {
+        console.log('endLoading');
+        this.isShow = false;
+        document.getElementById(this.bgNodeId).style.opacity = 0;
+        
+        setTimeout(() => {
+            const loadingElement = document.getElementById(this.wrapNodeId);
+            loadingElement.parentNode.removeChild(loadingElement);
+        },this.optionsToApply.transition)
+    }
+
+    /**
+     * ローディング表示のDOMを生成
+     * @return string
+    */
+    makeLoadingElementInner = () => {
+
+        let bgStyle = `
+                position:fixed;
+                top:0;left:0;right:0;bottom:0;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                flex-flow:column;
+                background-color:` + this.optionsToApply.backgroundColor + `;
+                font-size:` + this.optionsToApply.fontSize + `;
+                color:` + this.optionsToApply.color + `;
+                z-index:` + this.optionsToApply.zIndex + `;
+                transition:opacity ` + this.optionsToApply.transition + `ms;
+        `;
+
+        // トランジションが設定されていればopacityを0に
+        if(this.optionsToApply.transition > 0){
+            bgStyle = bgStyle + 'opacity:0;'
+        }
+
+        let imgElement = '';
+
+        if(this.optionsToApply.img !== ''){
+            // 画像のセッティング
+            const imgWidth = this.optionsToApply.imgWidth ? 'width:' + this.optionsToApply.imgWidth + ';' : '';
+            const imgHeight = this.optionsToApply.imgHeight ? 'height:' + this.optionsToApply.imgHeight + ';' : '';
+
+            const imgStyle = 'style="'+ imgWidth +''+ imgHeight +'"'
+            imgElement = `<img `+ imgStyle +` src="` + this.optionsToApply.img + `" />`;
+        }
+
+        const loadingInner = `
+            <div id="` + this.bgNodeId + `" style="` + bgStyle + `">
+              ` + imgElement + `
+              <div id="ktLoadingMessage">` + this.optionsToApply.message + `</div>
+            </div>
+        `;
+
+        return loadingInner;
+    };
+
+    // 実際にexportするやつ
+    methodsToExport = {
+        show:(options) => this.showLoading(options),
+        hide:() => this.hideLoading(),
+        defaultSet: (options) => this.changeDefaultSetting(options)
+    }
+
+};
+
+const ktLoading = new fillLoading().methodsToExport;
+
+document.getElementById('button').addEventListener('click',() => {    
+
+    ktLoading.show({
+        img:'https://www.charasuji.com/assets/img/characterCard_default.svg',
+        // message:'通信中...',
+        backgroundColor:'#ccc',
+    });
+    // ktLoading.show();
+
+    setTimeout(() => {
+        // ktLoading.hide();
+    },2000)
+});
+
+</script>
