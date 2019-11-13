@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+    }
+    .fslDemoArea {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-flow: column;
+    }
+  </style>
+  <body>
+
+    <div class="fslDemoArea">
+      <h2>表示時間(ms)</h2>
+      <input id="displayTime" type="number" value="2000"/>
+      <button id="startButton" style="margin: 40px 0 0;">GO</button>
+    </div>
+    <script src="./fs-loading.js" ></script>
+    <script>
+
+      fsLoading.setDefault({
+          style:{
+            backgroundColor:'pink'
+          }
+      });
+
+      document.getElementById('startButton').addEventListener('click',() => {
+
+          console.log(fsLoading.isShow());
+          
+
+          const displayTime = document.getElementById('displayTime').value;
+          fsLoading.show({});
+
+          setTimeout(() => {
+            console.log(fsLoading.isShow());
+          },10)
+
+          setTimeout(() => {
+              fsLoading.hide();
+          },displayTime)
+      })
+    </script>
+  </body>
+</html>

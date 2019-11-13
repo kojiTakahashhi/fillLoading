@@ -1,0 +1,36 @@
+{
+  "name": "fs-loading",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/fs-loading.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development webpack-dev-server",
+    "watch": "NODE_ENV=development webpack --watch -d",
+    "build": "NODE_ENV=production webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kojiTakahashhi/fillLoading.git"
+  },
+  "author": "kojiTakahashhi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kojiTakahashhi/fillLoading/issues"
+  },
+  "homepage": "https://github.com/kojiTakahashhi/fillLoading#readme",
+  "devDependencies": {
+    "css-loader": "^3.2.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "dependencies": {
+    "typescript-webpack": "0.0.2"
+  }
+}
