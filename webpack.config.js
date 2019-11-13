@@ -7,7 +7,7 @@ module.exports = {
     entry: __dirname + "/src/index.ts",
     output: {
         path: __dirname +'/dist', 
-        filename: 'fs-loading.js',
+        filename: 'simple-fs-loading.js',
         library: 'fsLoading',
         libraryTarget: 'umd',
         libraryExport: 'default'

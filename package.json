@@ -1,8 +1,8 @@
 {
-  "name": "fs-loading",
+  "name": "simple-fs-loading",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/fs-loading.js",
+  "main": "dist/simple-fs-loading.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development webpack-dev-server",
