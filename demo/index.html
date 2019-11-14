@@ -23,28 +23,15 @@
       <button id="startButton" style="margin: 40px 0 0;">GO</button>
     </div>
     <script src="./simple-fs-loading.js" ></script>
-    <script>
-
-      fsLoading.setDefault({
-          style:{
-            backgroundColor:'pink'
-          }
-      });
+    <script>      
 
       document.getElementById('startButton').addEventListener('click',() => {
 
-          console.log(fsLoading.isShow());
-          
-
           const displayTime = document.getElementById('displayTime').value;
-          fsLoading.show({});
+          sfsLoading.show();
 
           setTimeout(() => {
-            console.log(fsLoading.isShow());
-          },10)
-
-          setTimeout(() => {
-              fsLoading.hide();
+              sfsLoading.hide();
           },displayTime)
       })
     </script>

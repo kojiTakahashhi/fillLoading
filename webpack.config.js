@@ -8,7 +8,7 @@ module.exports = {
     output: {
         path: __dirname +'/dist', 
         filename: 'simple-fs-loading.js',
-        library: 'fsLoading',
+        library: 'sfsLoading',
         libraryTarget: 'umd',
         libraryExport: 'default'
     },

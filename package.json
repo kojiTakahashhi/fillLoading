@@ -1,24 +1,26 @@
 {
   "name": "simple-fs-loading",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.5",
+  "description": "simple full screen loading display",
   "main": "dist/simple-fs-loading.js",
+  "module": "dist/simple-fs-loading.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development webpack-dev-server",
     "watch": "NODE_ENV=development webpack --watch -d",
-    "build": "NODE_ENV=production webpack -p"
+    "build": "NODE_ENV=production webpack -p",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kojiTakahashhi/fillLoading.git"
+    "url": "git+https://github.com/kojiTakahashhi/simple-fs-loading.git"
   },
   "author": "kojiTakahashhi",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kojiTakahashhi/fillLoading/issues"
+    "url": "https://github.com/kojiTakahashhi/simple-fs-loading/issues"
   },
-  "homepage": "https://github.com/kojiTakahashhi/fillLoading#readme",
+  "homepage": "https://github.com/kojiTakahashhi/simple-fs-loading#readme",
   "devDependencies": {
     "css-loader": "^3.2.0",
     "node-sass": "^4.13.0",
@@ -31,6 +33,6 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
-    "typescript-webpack": "0.0.2"
+    "@types/node": "^12.12.7"
   }
 }

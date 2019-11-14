@@ -1,7 +1,7 @@
 import './defaultStyle.scss';
 
 interface OptionsInterface {
-    img:string,
+    imgSrc:string,
     message:string,
     zIndex:number,
     transitionTime:number,
@@ -30,7 +30,7 @@ class fsLoading {
 
     // デフォルトオプション
     private defaultOptions:OptionsInterface = {
-        img:'',
+        imgSrc:'',
         message:'loading...',
         zIndex:100,
         transitionTime:200,
@@ -46,7 +46,7 @@ class fsLoading {
 
     // 実際に適用するオプション
     private optionsToApply:OptionsInterface = {
-        img:'',
+        imgSrc:'',
         message:'',
         zIndex:100,
         transitionTime:200,
@@ -141,13 +141,13 @@ class fsLoading {
 
         let imgElement = '';
 
-        if(this.optionsToApply.img !== ''){
+        if(this.optionsToApply.imgSrc !== ''){
             // 画像のセッティング
             const imgWidth = this.optionsToApply.style.imgWidth ? 'width:' + this.optionsToApply.style.imgWidth + ';' : '';
             const imgHeight = this.optionsToApply.style.imgHeight ? 'height:' + this.optionsToApply.style.imgHeight + ';' : '';
 
             const imgStyle = 'style="'+ imgWidth +''+ imgHeight +'"'
-            imgElement = `<img id="` + this.imgElementId + `" `+ imgStyle +` src="` + this.optionsToApply.img + `" />`;
+            imgElement = `<img id="` + this.imgElementId + `" `+ imgStyle +` src="` + this.optionsToApply.imgSrc + `" />`;
         }
 
         const messageStyle = `{
@@ -179,4 +179,4 @@ class fsLoading {
 
 };
 
-export default new fsLoading().methodsToExport;
+export default new fsLoading().methodsToExport;;
