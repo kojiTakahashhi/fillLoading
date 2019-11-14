@@ -1,5 +1,7 @@
 import './defaultStyle.scss';
 
+import createElementWithAttribute from './createElementWithAttribute';
+
 interface OptionsInterface {
     imgSrc:string,
     message:string,
@@ -20,7 +22,6 @@ interface Styles {
 class fsLoading {
 
     // エレメントのid
-    private wrapElementId:string = 'fsLoadingWrap';
     private bgElementId:string = 'fsLoadingBg';
     private imgElementId:string = 'fsLoadingImage';
     private messageElementId:string = 'fsLoadingMessage';
@@ -78,10 +79,7 @@ class fsLoading {
 
         const appendLoadingElement = new Promise((resolve,reject) => {
             // element作成
-            const loadingElement = document.createElement('div');
-            loadingElement.id = this.wrapElementId;
-            loadingElement.innerHTML = this.makeLoadingElementInner();
-            document.body.appendChild(loadingElement);
+            document.body.appendChild(this.makeLoadingElementInner());
             resolve();
         });
 
@@ -114,7 +112,7 @@ class fsLoading {
         document.getElementById(this.bgElementId).style.opacity = '0';
         
         setTimeout(() => {
-            const loadingElement = document.getElementById(this.wrapElementId);
+            const loadingElement = document.getElementById(this.bgElementId);
             loadingElement.parentNode.removeChild(loadingElement);
         },this.optionsToApply.transitionTime)
     }
@@ -124,8 +122,9 @@ class fsLoading {
      * ローディング表示のelementを生成
      * @return string
     */
-    private makeLoadingElementInner = ():string => {
+    private makeLoadingElementInner = ():HTMLElement => {
 
+        // bg element
 
         let bgStyle = `
             background-color:` + this.optionsToApply.style.backgroundColor + `;
@@ -133,40 +132,57 @@ class fsLoading {
             transition:opacity ` + this.optionsToApply.transitionTime + `ms;
         `;
 
-
         // transitionTimeが設定されていればopacityを0に
         if(this.optionsToApply.transitionTime > 0){
             bgStyle += 'opacity:0;'
         }
 
-        let imgElement = '';
+        const bgElement = createElementWithAttribute('div',{
+            id:this.bgElementId,
+            style:bgStyle
+        });
+
+
+        // img element
 
         if(this.optionsToApply.imgSrc !== ''){
-            // 画像のセッティング
+
             const imgWidth = this.optionsToApply.style.imgWidth ? 'width:' + this.optionsToApply.style.imgWidth + ';' : '';
             const imgHeight = this.optionsToApply.style.imgHeight ? 'height:' + this.optionsToApply.style.imgHeight + ';' : '';
 
-            const imgStyle = 'style="'+ imgWidth +''+ imgHeight +'"'
-            imgElement = `<img id="` + this.imgElementId + `" `+ imgStyle +` src="` + this.optionsToApply.imgSrc + `" />`;
+            const imgElement = createElementWithAttribute('img',{
+                id:this.imgElementId,
+                src:this.optionsToApply.imgSrc,
+                style:imgWidth +''+ imgHeight
+            });
+
+            bgElement.appendChild(imgElement);
+
         }
 
-        const messageStyle = `{
-            font-size:` + this.optionsToApply.style.fontSize + `;
-            color:` + this.optionsToApply.style.color + `;
-        }`;
 
-        const loadingInner = `
-            <div id="` + this.bgElementId + `" style="` + bgStyle + `">
-              ` + imgElement + `
-              <div id="` + this.messageElementId + `" style="` + messageStyle + `" >` + this.optionsToApply.message + `</div>
-            </div>
-        `;
+        // message element
 
-        // issue
-        // インジェクション防止のため、innerHTMLはやめて
-        // elementをattributeと共に作るメソッドを別ファイルに作ってそれを使う。
+        if(this.optionsToApply.message !== ''){
+            const messageStyle = `
+                font-size:` + this.optionsToApply.style.fontSize + `;
+                font-family:` + this.optionsToApply.style.fontFamily + `;
+                color:` + this.optionsToApply.style.color + `;
+            `;
 
-        return loadingInner;
+            const messageElement = createElementWithAttribute('div',{
+                id:this.messageElementId,
+                style:messageStyle
+            });
+
+            messageElement.innerText = this.optionsToApply.message;
+
+            bgElement.appendChild(messageElement);
+
+        }
+
+
+        return bgElement;
     };
 
     // exportする関数群
@@ -174,7 +190,7 @@ class fsLoading {
         show:(options:OptionsInterface) => this.showLoading(options),
         hide:() => this.hideLoading(),
         setDefault: (options:OptionsInterface) => this.changeDefaultSetting(options),
-        isShow:() => this.isShow
+        isShow:() => this.isShow,
     }
 
 };

@@ -1,6 +1,6 @@
 {
   "name": "simple-fs-loading",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "simple full screen loading display",
   "main": "dist/simple-fs-loading.js",
   "module": "dist/simple-fs-loading.js",

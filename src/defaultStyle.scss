@@ -1,22 +1,20 @@
-#fsLoadingWrap {
-  #fsLoadingBg {
-    position:fixed;
-    top:0;left:0;right:0;bottom:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-flow:column;
+#fsLoadingBg {
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-flow:column;
 
-    background-color: rgba(0,0,0,.8);
+  background-color: rgba(0,0,0,.8);
 
-    #fsLoadingImage + #fsLoadingMessage {
-      margin-top: 1em;
-    }
+  #fsLoadingImage + #fsLoadingMessage {
+    margin-top: 1em;
+  }
 
-    #fsLoadingMessage {
-      color: #fff;
-      font-size: 16px;
-    }
+  #fsLoadingMessage {
+    color: #fff;
+    font-size: 16px;
   }
 }
 

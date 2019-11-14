@@ -16,7 +16,8 @@ module.exports = {
         rules: [
             {
               test: /\.ts$/,
-              loader: 'ts-loader'
+              loader: 'ts-loader',
+              exclude: /node_modules/,
             },
 
             {
@@ -42,6 +43,11 @@ module.exports = {
               ]
             }
         ]
+    },
+
+    resolve: {
+        extensions: ['.ts','.js'],
+        modules: ['node_modules']
     },
 
     devServer: {
